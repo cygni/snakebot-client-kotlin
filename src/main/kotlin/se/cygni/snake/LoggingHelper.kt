@@ -1,6 +1,7 @@
 package se.cygni.snake
 
 import java.util.logging.Logger
+import kotlin.reflect.full.companionObject
 
 // Return logger for Java class, if companion object fix the name
 public fun <T: Any> logger(forClass: Class<T>): Logger {

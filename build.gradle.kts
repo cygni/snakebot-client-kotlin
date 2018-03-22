@@ -8,7 +8,7 @@ plugins {
 }
 
 application {
-    mainClassName = "se.cygni.snake.HelloWorldKt"
+    mainClassName = "se.cygni.snake.MainKt"
 }
 
 dependencies {
