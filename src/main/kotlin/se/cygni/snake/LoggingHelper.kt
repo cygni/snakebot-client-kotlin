@@ -1,11 +1,12 @@
 package se.cygni.snake
 
-import java.util.logging.Logger
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import kotlin.reflect.full.companionObject
 
 // Return logger for Java class, if companion object fix the name
 public fun <T: Any> logger(forClass: Class<T>): Logger {
-    return Logger.getLogger(unwrapCompanionClass(forClass).name)
+    return LoggerFactory.getLogger(unwrapCompanionClass(forClass).name)
 }
 
 // unwrap companion class to enclosing class given a Java Class
@@ -22,3 +23,5 @@ public fun <R : Any> R.lazyLogger(): Lazy<Logger> {
     return lazy { logger(this.javaClass) }
 }
 
+interface Loggable {}
+fun Loggable.logger(): Logger = logger(this.javaClass)
