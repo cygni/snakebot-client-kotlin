@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.node.IntNode
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import se.cygni.snake.client.api.model.*
+import se.cygni.snake.client.api.model.TileType.*
 import java.io.IOException
 
 val mapper = jacksonObjectMapper()
@@ -51,11 +52,9 @@ class Serializer: JsonSerializer<GameMessage>() {
 fun GameMessage.encode(): String = getCustomMapper().writeValueAsString(this)
 fun String.decode(): GameMessage = getCustomMapper().readValue(this)
 
-
-// TODO Cleanup of this below in Kotlin-way
-class TileContentDeserializer : JsonDeserializer<TileContent>() {
+class TileDeserializer : JsonDeserializer<Tile>() {
     @Throws(IOException::class, JsonProcessingException::class)
-    override fun deserialize(jp: JsonParser, ctxt: DeserializationContext): TileContent {
+    override fun deserialize(jp: JsonParser, ctxt: DeserializationContext): Tile {
         val node = jp.codec.readTree<JsonNode>(jp)
 
         val content = node.get("content").asText()
@@ -76,12 +75,14 @@ class TileContentDeserializer : JsonDeserializer<TileContent>() {
         if (node.has("tail"))
             tail = (node.get("tail") as BooleanNode).booleanValue()
 
-        return when (content) {
-            MapObstacle.CONTENT -> MapObstacle()
-            MapFood.CONTENT -> MapFood()
-            MapSnakeHead.CONTENT -> MapSnakeHead(name, playerId)
-            MapSnakeBody.CONTENT -> MapSnakeBody(tail, playerId, order)
-            else -> MapEmpty()
+        val type = TileType.from(content)
+
+        return when(type) {
+            EMPTY -> EmptyTile()
+            FOOD -> FoodTile()
+            OBSTACLE -> ObstacleTile()
+            SNAKE_BODY -> SnakeBodyTile(tail, playerId, order)
+            SNAKE_HEAD -> SnakeHeadTile(name, playerId)
         }
     }
 }

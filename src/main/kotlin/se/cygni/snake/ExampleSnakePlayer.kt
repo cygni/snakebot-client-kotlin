@@ -8,7 +8,6 @@ import se.cygni.snake.client.api.model.GameMode
 import se.cygni.snake.client.api.model.SnakeDirection
 import java.util.*
 
-
 fun main(args: Array<String>) {
     val LOG = LoggerFactory.getLogger("Main")
     val task = {
@@ -39,13 +38,11 @@ class ExampleSnakePlayer : BaseSnakeClient() {
     private var random = Random()
 
     override val name = "#horv_" + random.nextInt(1000)
-    //    private String host = "localhost";
-    //    private int port = 8080;
-    //    override val serverHost = "localhost"
-    //    override val serverPort = 8080
+        override val serverHost = "localhost"
+        override val serverPort = 8080
 
-    override val serverHost = "snake.cygni.se"
-    override val serverPort = 80
+    //override val serverHost = "snake.cygni.se"
+    //override val serverPort = 80
     override val gameMode = GameMode.TRAINING
 
     var lastDirection: SnakeDirection

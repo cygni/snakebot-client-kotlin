@@ -103,13 +103,16 @@ abstract class BaseSnakeClient: WebSocketListener(), SnakeClient  {
     override fun onMessage(webSocket: WebSocket, text: String) {
         super.onMessage(webSocket, text)
         LOG.debug("Message $text")
+        var decoded: GameMessage? = null;
         try {
-            val decoded = text.decode()
+            decoded = text.decode()
             LOG.debug("Decoded: $decoded")
-            handleMessage(decoded)
         } catch (e: Exception) {
-            LOG.info("Error $e")
+            LOG.info("Error when decoding $e")
+            e.printStackTrace()
         }
+
+        decoded?.let(this::handleMessage)
     }
 
     override fun onClosed(webSocket: WebSocket, code: Int, reason: String?) {

@@ -1,9 +1,9 @@
 package se.cygni.snake.client.api.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import se.cygni.snake.client.api.TileContentDeserializer;
+import se.cygni.snake.client.api.TileDeserializer;
 
-@JsonDeserialize(using = TileContentDeserializer.class)
+@JsonDeserialize(using = TileDeserializer.class)
 public interface TileContent {
     String getContent();
     String toDisplay();

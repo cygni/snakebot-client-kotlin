@@ -8,6 +8,6 @@ class PlayerRank(
         val alive: Boolean) {
 
     override fun toString(): String {
-        return rank.toString() + ".\t" + points + " pts\t" + playerName + " (" + (if (alive) "alive" else "dead") + ")"
+        return "$rank.\t$points pts\t$playerName (${if (alive) "alive" else "dead"})"
     }
 }
