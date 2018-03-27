@@ -7,6 +7,7 @@ import se.cygni.snake.client.api.*
 import se.cygni.snake.client.api.model.GameMode
 import se.cygni.snake.client.api.model.SnakeDirection
 import java.util.*
+import kotlin.system.exitProcess
 
 fun main(args: Array<String>) {
     val LOG = LoggerFactory.getLogger("Main")
@@ -26,6 +27,7 @@ fun main(args: Array<String>) {
         } while (sp.isPlaying())
 
         LOG.info("Shutting down")
+        exitProcess(0)
     }
 
 
@@ -38,8 +40,8 @@ class ExampleSnakePlayer : BaseSnakeClient() {
     private var random = Random()
 
     override val name = "#horv_" + random.nextInt(1000)
-        override val serverHost = "localhost"
-        override val serverPort = 8080
+    override val serverHost = "localhost"
+    override val serverPort = 8080
 
     //override val serverHost = "snake.cygni.se"
     //override val serverPort = 80

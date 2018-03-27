@@ -90,7 +90,7 @@ abstract class BaseSnakeClient: WebSocketListener(), SnakeClient  {
         socket?.send(encodedMessage)
     }
 
-    override fun onClosing(webSocket: WebSocket, code: Int, reason: String?) {
+    override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
         super.onClosing(webSocket, code, reason)
         LOG.info("Closing with code: $code and for reason $reason")
     }
@@ -115,7 +115,7 @@ abstract class BaseSnakeClient: WebSocketListener(), SnakeClient  {
         decoded?.let(this::handleMessage)
     }
 
-    override fun onClosed(webSocket: WebSocket, code: Int, reason: String?) {
+    override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
         super.onClosed(webSocket, code, reason)
         LOG.warn("Server connection closed")
         onSessionClosed()
