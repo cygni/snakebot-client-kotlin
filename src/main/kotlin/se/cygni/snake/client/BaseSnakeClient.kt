@@ -8,7 +8,6 @@ import se.cygni.snake.client.api.*
 import se.cygni.snake.client.api.model.GameMode
 import se.cygni.snake.client.api.model.GameSettings
 import se.cygni.snake.client.api.model.SnakeDirection
-import se.cygni.snake.lazyLogger
 import java.util.concurrent.TimeUnit
 
 val LOG = LoggerFactory.getLogger(BaseSnakeClient::class.java)
@@ -22,7 +21,7 @@ abstract class BaseSnakeClient: WebSocketListener(), SnakeClient  {
     private var tournamentEnded: Boolean = false
 
     fun connect() {
-        val uri = String.format("ws://%s:%d/%s", serverHost, serverPort, gameMode.toString().toLowerCase())
+        val uri = String.format("ws://%s:%d/%s", HOST, PORT, GAME_MODE.toString().toLowerCase())
 
         val okHttpClient = OkHttpClient.Builder()
                 .readTimeout(0, TimeUnit.MILLISECONDS)
@@ -65,7 +64,7 @@ abstract class BaseSnakeClient: WebSocketListener(), SnakeClient  {
     }
 
     fun isPlaying(): Boolean {
-        return if (gameMode === GameMode.TRAINING) {
+        return if (GAME_MODE === GameMode.TRAINING) {
             socket != null && !gameEnded
         } else {
             socket != null && !tournamentEnded

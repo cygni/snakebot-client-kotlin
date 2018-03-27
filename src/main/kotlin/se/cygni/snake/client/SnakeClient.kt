@@ -5,13 +5,10 @@ import se.cygni.snake.client.api.model.GameMode
 
 interface SnakeClient {
 
-    val serverHost: String
-
-    val serverPort: Int
-
+    val HOST: String
+    val PORT: Int
+    val GAME_MODE: GameMode
     val name: String
-
-    val gameMode: GameMode
 
     fun onMapUpdate(mapUpdateEvent: MapUpdateEvent)
 
