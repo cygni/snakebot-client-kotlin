@@ -31,7 +31,7 @@ To run your client:
 
 ## Implementation
 
-There is one class you should focus on for your implementation have `ExampleSnakePlayer.kt` The method to start in looks like this:
+There is one class you should focus on for your implementation `ExampleSnakePlayer.kt` The method to start in looks like this:
 
 ```kotlin
 
