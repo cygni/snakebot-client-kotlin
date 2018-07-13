@@ -1,40 +1,12 @@
 package se.cygni.snake
 
-import org.slf4j.LoggerFactory
 import se.cygni.snake.client.BaseSnakeClient
 import se.cygni.snake.client.MapUtil
 import se.cygni.snake.client.api.*
 import se.cygni.snake.client.api.model.GameMode
 import se.cygni.snake.client.api.model.SnakeDirection
 import java.util.*
-import kotlin.system.exitProcess
 
-
-fun main(args: Array<String>) {
-    val LOG = LoggerFactory.getLogger("Main")
-    val task = {
-        val sp = ExampleSnakePlayer()
-        sp.connect()
-
-        // Keep this process alive as long as the
-        // Snake is connected and playing.
-        do {
-            try {
-                Thread.sleep(1000)
-            } catch (e: InterruptedException) {
-                e.printStackTrace()
-            }
-
-        } while (sp.isPlaying())
-
-        LOG.info("Shutting down")
-        exitProcess(0)
-    }
-
-
-    val thread = Thread(task)
-    thread.start()
-}
 
 class ExampleSnakePlayer : BaseSnakeClient() {
     private val LOG by lazyLogger()
@@ -45,31 +17,27 @@ class ExampleSnakePlayer : BaseSnakeClient() {
     // Name of your snake
     override val name = "HorvSnake9001"
 
-    override val HOST = "localhost"
-    override val PORT = 8080
-    //override val HOST = "snake.cygni.se"
-    //override val PORT = 80
+    //override val HOST = "localhost"
+    //override val PORT = 8080
+    override val HOST = "snake.cygni.se"
+    override val PORT = 80
 
     override val GAME_MODE = GameMode.TRAINING
 
 
     override fun onMapUpdate(mapUpdateEvent: MapUpdateEvent) {
+        // Input your implementation here, below is a dummy example implementation that
+        // goes into a random valid direction at every step
+
 
         // MapUtil contains lot's of useful methods for querying the map!
         val mapUtil = MapUtil(mapUpdateEvent.map, playerId)
 
-        val directions = mutableListOf<SnakeDirection>()
-
         // Let's see in which directions I can move
-        for (direction in SnakeDirection.values()) {
-            if (mapUtil.canIMoveInDirection(direction)) {
-                directions.add(direction)
-            }
-        }
+        val directions = SnakeDirection.values().filter(mapUtil::canIMoveInDirection)
 
         val r = Random()
         var chosenDirection = SnakeDirection.DOWN
-
         // Choose a random direction
         if (!directions.isEmpty()) {
             chosenDirection = directions[r.nextInt(directions.size)]

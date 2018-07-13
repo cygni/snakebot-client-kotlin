@@ -12,7 +12,7 @@ plugins {
 }
 
 application {
-    mainClassName = "se.cygni.snake.ExampleSnakePlayerKt"
+    mainClassName = "se.cygni.snake.MainKt"
 }
 
 val junitPlatformVersion = "1.0.1"
