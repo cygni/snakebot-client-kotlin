@@ -97,6 +97,7 @@ abstract class BaseSnakeClient: WebSocketListener(), SnakeClient  {
     override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
         super.onFailure(webSocket, t, response)
         LOG.info("Failure ${t.message} $response")
+        socket = null
     }
 
     override fun onMessage(webSocket: WebSocket, text: String) {
