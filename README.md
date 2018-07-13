@@ -21,12 +21,12 @@ C. Execute: `./gradlew build`
 
 To clean and build:
 ```
-> ./gradlew clean build
+./gradlew clean build
 ```
 
 To run your client:
 ```
-> ./gradlew run
+./gradlew run
 ```
 
 ## Implementation
