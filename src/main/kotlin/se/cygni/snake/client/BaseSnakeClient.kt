@@ -72,12 +72,12 @@ abstract class BaseSnakeClient: WebSocketListener(), SnakeClient  {
     }
 
     private fun sendClientInfo() {
-        val clientInfo = ClientInfo( // TODO non-hardcoded languageVersion-version + OS
+        val clientInfo = ClientInfo(
                 language = "Kotlin",
-                languageVersion = "Unknown",
-                operatingSystem = "Ubuntu",
-                operatingSystemVersion = "",
-                clientVersion = "0.1"
+                languageVersion = KotlinVersion.CURRENT.toString(),
+                operatingSystem = System.getProperty("os.name"),
+                operatingSystemVersion = System.getProperty("os.version"),
+                clientVersion = "0.2"
         )
 
         sendMessage(clientInfo)
